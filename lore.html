@@ -6,7 +6,7 @@
   <title>Jiggles</title>
   
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,7 +26,7 @@
           },
           fontFamily: {
             pinyon: ['Pinyon Script', 'cursive'],
-            dancing: ['Dancing Script', 'cursive']
+            playfair: ['Playfair Display', 'serif']
           },
           animation: {
             'moveVertical': 'moveVertical 30s ease infinite',
@@ -96,16 +96,30 @@
       opacity: 0.3;
     }
     
-    /* Glassmorphism Navigation Styles - Updated for larger, bolder buttons */
+    /* Glassmorphism styles */
+    .glass-box {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+    }
+    
+    .photo-frame {
+      border: 8px solid white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Glassmorphism Navigation Styles */
     .glass-nav-button {
       backdrop-filter: blur(10px);
       background: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
-      font-size: 1.5rem; /* Larger font size */
-      font-weight: 700; /* Bold text */
-      padding: 1rem 2rem; /* Larger padding for bigger buttons */
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 1rem 2rem;
     }
     
     .glass-nav-button:hover {
@@ -138,16 +152,16 @@
   </style>
 </head>
 
-<body class="font-pinyon bg-white overflow-x-hidden">
+<body class="font-playfair bg-white overflow-x-hidden">
   <!-- Universal Navigation Bar -->
   <header class="fixed top-0 left-0 w-full bg-white/10 backdrop-blur-md border-b border-white/20 z-50">
     <nav class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto">
-      <!-- Logo/Brand - Made larger and bolder -->
+      <!-- Logo/Brand -->
       <a href="index.html" class="text-5xl font-pinyon text-primary hover:text-primary-dark transition-colors font-bold">
         Jiggles
       </a>
       
-      <!-- Desktop Navigation with Larger, Bolder Glassmorphism Buttons -->
+      <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-6">
         <a href="index.html" class="glass-nav-button px-8 py-4 text-2xl font-pinyon text-primary rounded-lg font-bold">Home</a>
         <a href="lore.html" class="glass-nav-button px-8 py-4 text-2xl font-pinyon text-primary rounded-lg font-bold">Lore</a>
@@ -167,7 +181,7 @@
     </nav>
   </header>
 
-  <!-- Mobile Navigation Menu - Also made larger and bolder -->
+  <!-- Mobile Navigation Menu -->
   <div id="mobileMenu" class="fixed inset-0 bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center pt-24 pb-16">
     <nav class="flex flex-col items-center space-y-10 text-center">
       <a href="index.html" class="text-5xl font-pinyon text-primary py-5 px-10 hover:bg-primary/10 rounded-lg transition-all font-bold">Home</a>
@@ -177,7 +191,7 @@
       <a href="contact.html" class="text-5xl font-pinyon text-primary py-5 px-10 hover:bg-primary/10 rounded-lg transition-all font-bold">Bookings</a>
     </nav>
     
-    <!-- Social/Contact in mobile menu - Also made larger -->
+    <!-- Social/Contact in mobile menu -->
     <div class="absolute bottom-16 flex space-x-8">
       <a href="#" class="text-primary hover:text-primary-dark text-4xl">IG</a>
       <a href="#" class="text-primary hover:text-primary-dark text-4xl">FB</a>
@@ -215,19 +229,34 @@
   </div>
 
   <!-- Main Content -->
-  <main class="pt-48">
-    <section class="max-w-4xl mx-auto mt-20 mb-32">
-      <!-- your events content -->
-    </section>
-  
-   <!-- Elfsight Slider | Untitled Slider -->
-<section class="flex justify-center items-center px-4 py-10">
-  <div class="w-full max-w-5xl overflow-hidden rounded-3xl border border-glass-border shadow-lg backdrop-blur-md">
-    <script src="https://static.elfsight.com/platform/platform.js" async></script>
-    <div class="elfsight-app-4c61f882-bac0-47b5-a99b-e50852733ce3" data-elfsight-app-lazy></div>
-  </div>
-</section>
-
+  <main class="relative pt-40 pb-20 px-4 max-w-4xl mx-auto z-10">
+    <div class="flex flex-col items-center mb-12">
+      <!-- Updated photo frame with larger size and mauve border -->
+      <div class="photo-frame w-64 h-64 rounded-full overflow-hidden mb-10 border-4 border-primary">
+        <img src="images/8C5D10B1-0C71-418A-9053-32D6C67AB359.jpg" alt="Jiggles" class="w-full h-full object-cover">
+      </div>
+      <!-- Glassmorphism Box -->
+      <div class="glass-box p-8 md:p-12 w-full">
+        <h1 class="font-pinyon text-5xl md:text-6xl text-center text-primary mb-8">Meet Jiggles</h1>
+        
+        <div class="font-playfair text-lg space-y-6">
+          <p>Jiggles is a Sacramento-based mixed multimedia artist and performer whose work blends visual art, makeup, fashion, clown artistry, flow/fire performance, and burlesque. From an early age, Jiggles was drawn to creative expression, evolving from childhood sketches and paintings to a dynamic career spanning multiple disciplines.</p>
+          
+          <p>At the heart of Jiggles' work is a commitment to finding beauty in the mundane and the unseen. Known for their decadent, chaotically beautiful style, Jiggles uses makeup and fashion as powerful storytelling tools, crafting narratives that are both whimsical and deeply emotive.</p>
+          
+          <p>Clown artistry is another cornerstone of Jiggles' practice. Inspired by the concept of wearing masks for the world, Jiggles transforms this vulnerability into a means of authentic self-expression, channeling the fool archetype to explore profound themes with whimsy and depth.</p>
+          
+          <p>Their burlesque practice serves as a vibrant space where all their creative passions converge—makeup, fashion, flow arts, and performance come together in what Jiggles describes as the ultimate declaration of self-love and identity. Through burlesque, Jiggles celebrates their artistry while inviting others to embrace their authentic selves.</p>
+          
+          <p>A dedicated performer for over 11 years, Jiggles also specializes in flow and fire artistry. Fascinated by odd and illusionary props, they create performances that are both mesmerizing and emotionally resonant—captivating displays of softness and wonder, seamlessly blending technical skill with heartfelt storytelling.</p>
+          
+          <p>As a self-proclaimed "professional vibe provider," Jiggles channels their unique energy into every project, creating art that transforms the ordinary into the extraordinary and inspires connection, playfulness, and joy.</p>
+          
+          <p>Jiggles' work is a celebration of the unseen, a whimsical yet deeply felt exploration of identity, beauty, and storytelling.</p>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <footer class="relative w-full h-[150px] mt-12 z-10"></footer>
 
