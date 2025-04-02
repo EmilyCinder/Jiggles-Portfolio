@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jiggles</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#8B5A7E', // Dark mauve
+            'primary-dark': '#6D4562',
+            glass: 'rgba(255, 255, 255, 0.2)',
+            'glass-border': 'rgba(255, 255, 255, 0.3)',
+            bg1: 'rgb(250, 230, 250)',
+            bg2: 'rgb(255, 240, 245)',
+            bg3: 'rgb(255, 230, 255)',
+            bg4: 'rgb(255, 250, 255)'
+          },
+          fontFamily: {
+            pinyon: ['Pinyon Script', 'cursive'],
+            dancing: ['Dancing Script', 'cursive']
+          },
+          animation: {
+            'moveVertical': 'moveVertical 30s ease infinite',
+            'moveInCircle': 'moveInCircle 20s reverse infinite',
+            'moveHorizontal': 'moveHorizontal 40s ease infinite',
+            'sparkleFadeOut': 'sparkleFadeOut 2s ease-out forwards'
+          },
+          keyframes: {
+            moveVertical: {
+              '0%, 100%': { transform: 'translateY(-50%)' },
+              '50%': { transform: 'translateY(50%)' }
+            },
+            moveInCircle: {
+              '0%': { transform: 'rotate(0deg)' },
+              '50%': { transform: 'rotate(180deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            moveHorizontal: {
+              '0%': { transform: 'translateX(-50%) translateY(-10%)' },
+              '50%': { transform: 'translateX(50%) translateY(10%)' },
+              '100%': { transform: 'translateX(-50%) translateY(-10%)' }
+            },
+            sparkleFadeOut: {
+              '0%': { opacity: '1', transform: 'scale(1) rotate(0deg)' },
+              '50%': { transform: 'scale(1.5) rotate(90deg)' },
+              '100%': { opacity: '0', transform: 'scale(0.5) rotate(180deg)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --circle-size: 80%;
+      --blending: soft-light;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(40deg, var(--tw-gradient-stops));
+      --tw-gradient-stops: var(--bg1), var(--bg2), var(--bg3), var(--bg4);
+    }
+    
+    .gradient-circle {
+      background: radial-gradient(circle at center, rgba(var(--color), 0.8) 0, rgba(var(--color), 0) 50%) no-repeat;
+      mix-blend-mode: var(--blending);
+      width: var(--circle-size);
+      height: var(--circle-size);
+      top: calc(50% - var(--circle-size) / 2);
+      left: calc(50% - var(--circle-size) / 2);
+    }
+    
+    .g1 { --color: 255, 182, 193; animation: moveVertical 30s ease infinite; }
+    .g2 { --color: 173, 216, 230; animation: moveInCircle 20s reverse infinite; transform-origin: calc(50% - 400px); }
+    .g3 { --color: 230, 190, 255; animation: moveInCircle 40s linear infinite; top: calc(50% - var(--circle-size) / 2 + 200px); left: calc(50% - var(--circle-size) / 2 - 500px); transform-origin: calc(50% + 400px); }
+    .g4 { --color: 255, 218, 185; animation: moveHorizontal 40s ease infinite; transform-origin: calc(50% - 200px); opacity: 0.7; }
+    .g5 { --color: 255, 182, 193; width: calc(var(--circle-size) * 2); height: calc(var(--circle-size) * 2); top: calc(50% - var(--circle-size)); left: calc(50% - var(--circle-size)); transform-origin: calc(50% - 800px) calc(50% + 200px); animation: moveInCircle 20s ease infinite; }
+    
+    .sparkle {
+      background: radial-gradient(circle, rgba(139, 90, 126, 0.9), rgba(139, 90, 126, 0));
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+    
+    .noiseBg {
+      mix-blend-mode: soft-light;
+      opacity: 0.3;
+    }
+    
+    /* Glassmorphism Navigation Styles - Updated for larger, bolder buttons */
+    .glass-nav-button {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      font-size: 1.5rem; /* Larger font size */
+      font-weight: 700; /* Bold text */
+      padding: 1rem 2rem; /* Larger padding for bigger buttons */
+    }
+    
+    .glass-nav-button:hover {
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    /* Mobile Menu Animation */
+    .mobile-menu-open #line1 {
+      transform: rotate(45deg) translateY(8px);
+    }
+    .mobile-menu-open #line2 {
+      opacity: 0;
+    }
+    .mobile-menu-open #line3 {
+      transform: rotate(-45deg) translateY(-8px);
+    }
+    
+    /* Mobile Menu Transition */
+    #mobileMenu {
+      transform: translateY(100%);
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+    }
+    #mobileMenu.open {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body class="font-pinyon bg-white overflow-x-hidden">
+  <!-- Universal Navigation Bar -->
+  <header class="fixed top-0 left-0 w-full bg-white/10 backdrop-blur-md border-b border-white/20 z-50">
+    <nav class="flex justify-between items-center px-4 py-3 max-w-7xl mx-auto">
+      <!-- Logo/Brand - Made larger and bolder -->
+      <a href="index.html" class="text-5xl font-pinyon text-primary hover:text-primary-dark transition-colors font-bold">
+        Jiggles
+      </a>
+      
+      <!-- Desktop Navigation with Larger, Bolder Glassmorphism Buttons -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="index.html" class="glass-nav-button px-8 py-4 text-2xl font-pinyon text-primary rounded-lg font-bold">Home</a>
+        <a href="lore.html" class="glass-nav-button px-8 py-4 text-2xl font-pinyon text-primary rounded-lg font-bold">Lore</a>
+        <a href="cover.html" class="glass-nav-button px-8 py-4 text-2xl font-pinyon text-primary rounded-lg font-bold">Events</a>
+        <a href="gallery.html" class="glass-nav-button px-8 py-4 text-2xl font-pinyon text-primary rounded-lg font-bold">Gallery</a>
+        <a href="contact.html" class="glass-nav-button px-8 py-4 text-2xl font-pinyon text-primary rounded-lg font-bold">Bookings</a>
+      </div>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuButton" class="md:hidden p-2 focus:outline-none">
+        <div class="w-8 flex flex-col gap-2">
+          <span class="h-1 bg-primary transition-all duration-300 w-full" id="line1"></span>
+          <span class="h-1 bg-primary transition-all duration-300 w-full" id="line2"></span>
+          <span class="h-1 bg-primary transition-all duration-300 w-full" id="line3"></span>
+        </div>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Mobile Navigation Menu - Also made larger and bolder -->
+  <div id="mobileMenu" class="fixed inset-0 bg-white/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center pt-24 pb-16">
+    <nav class="flex flex-col items-center space-y-10 text-center">
+      <a href="index.html" class="text-5xl font-pinyon text-primary py-5 px-10 hover:bg-primary/10 rounded-lg transition-all font-bold">Home</a>
+      <a href="lore.html" class="text-5xl font-pinyon text-primary py-5 px-10 hover:bg-primary/10 rounded-lg transition-all font-bold">Lore</a>
+      <a href="cover.html" class="text-5xl font-pinyon text-primary py-5 px-10 hover:bg-primary/10 rounded-lg transition-all font-bold">Events</a>
+      <a href="gallery.html" class="text-5xl font-pinyon text-primary py-5 px-10 hover:bg-primary/10 rounded-lg transition-all font-bold">Gallery</a>
+      <a href="contact.html" class="text-5xl font-pinyon text-primary py-5 px-10 hover:bg-primary/10 rounded-lg transition-all font-bold">Bookings</a>
+    </nav>
+    
+    <!-- Social/Contact in mobile menu - Also made larger -->
+    <div class="absolute bottom-16 flex space-x-8">
+      <a href="#" class="text-primary hover:text-primary-dark text-4xl">IG</a>
+      <a href="#" class="text-primary hover:text-primary-dark text-4xl">FB</a>
+      <a href="#" class="text-primary hover:text-primary-dark text-4xl">✉️</a>
+    </div>
+  </div>
+
+  <!-- Gradient Background -->
+  <div class="gradient-bg fixed inset-0 -z-10">
+    <svg viewBox="0 0 100vw 100vw" xmlns='http://www.w3.org/2000/svg' class="noiseBg absolute inset-0 w-full h-full">
+      <filter id='noiseFilterBg'>
+        <feTurbulence type='fractalNoise' baseFrequency='0.6' stitchTiles='stitch'/>
+      </filter>
+      <rect width='100%' height='100%' filter='url(#noiseFilterBg)'/>
+    </svg>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 18 -8" result="goo"/>
+          <feBlend in="SourceGraphic" in2="goo"/>
+        </filter>
+      </defs>
+    </svg>
+    
+    <div class="gradients-container absolute inset-0 filter-[url('#goo')] blur-[40px]">
+      <div class="gradient-circle g1 absolute"></div>
+      <div class="gradient-circle g2 absolute"></div>
+      <div class="gradient-circle g3 absolute"></div>
+      <div class="gradient-circle g4 absolute"></div>
+      <div class="gradient-circle g5 absolute"></div>
+      <div class="interactive absolute w-full h-full -top-1/2 -left-1/2 opacity-70"></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="min-h-screen pt-32 px-4">
+    <div class="max-w-4xl mx-auto py-12">
+      <h1 class="text-7xl font-pinyon text-primary text-center mb-10 font-bold">Welcome to Jiggles</h1>
+      <p class="text-2xl text-center font-bold">Your beautiful content goes here...</p>
+    </div>
+  </main>
+
+  <footer class="relative w-full h-[150px] mt-12 z-10"></footer>
+
+  <script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const mobileMenuButton = document.getElementById('mobileMenuButton');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const body = document.body;
+      
+      mobileMenuButton.addEventListener('click', () => {
+        // Toggle menu visibility
+        mobileMenu.classList.toggle('open');
+        
+        // Toggle body scroll
+        body.classList.toggle('overflow-hidden');
+        
+        // Toggle button animation
+        body.classList.toggle('mobile-menu-open');
+      });
+      
+      // Close menu when clicking on links
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          body.classList.remove('overflow-hidden', 'mobile-menu-open');
+        });
+      });
+    });
+
+    // Interactive gradient
+    document.addEventListener('DOMContentLoaded', () => {
+      const interBubble = document.querySelector('.interactive');
+      let curX = 0, curY = 0, tgX = 0, tgY = 0;
+      
+      function move() {
+        curX += (tgX - curX) / 20;
+        curY += (tgY - curY) / 20;
+        interBubble.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
+        requestAnimationFrame(move);
+      }
+      
+      window.addEventListener('mousemove', (e) => {
+        tgX = e.clientX;
+        tgY = e.clientY;
+      });
+      
+      move();
+    });
+
+    // Sparkle cursor effect (optimized)
+    const sparkleContainer = document.createElement('div');
+    sparkleContainer.className = 'fixed inset-0 pointer-events-none z-50 overflow-hidden';
+    document.body.appendChild(sparkleContainer);
+    
+    document.addEventListener('mousemove', (e) => {
+      const sparkle = document.createElement('div');
+      sparkle.className = `sparkle absolute ${Math.random() < 0.5 ? 'w-[15px] h-[15px]' : 'w-[7px] h-[7px]'}`;
+      sparkle.style.left = `${e.pageX}px`;
+      sparkle.style.top = `${e.pageY}px`;
+      sparkle.style.animation = 'sparkleFadeOut 2s ease-out forwards';
+      sparkleContainer.appendChild(sparkle);
+      
+      setTimeout(() => sparkle.remove(), 2000);
+    });
+  </script>
+</body>
+</html>
